@@ -1,26 +1,28 @@
 import { Paper, Text, Button, Title } from "@mantine/core";
-import { ICardProps } from "./types";
 import classes from "./styles.module.css";
+import useCharacterStore from "@/store/useCharacterStore";
 
-const UiCard = ({ image, title, category }: ICardProps) => {
+const UiCard = ({ ...data }: any) => {
+  const { setId } = useCharacterStore();
+
   return (
     <Paper
       p="xl"
       shadow="md"
       radius="md"
-      style={{ backgroundImage: `url(${image})` }}
+      style={{ backgroundColor: "#ff00cc" }}
       className={classes.card}
     >
       <div>
-        <Text className={classes.category} size="xs">
-          {category}
+        <Text className={classes.category} size="sm">
+          Age: {data.age}
         </Text>
         <Title order={3} className={classes.title}>
-          {title}
+          {data.name}
         </Title>
       </div>
-      <Button variant="white" color="dark">
-        Read article
+      <Button variant="white" color="dark" onClick={() => setId(data.id)}>
+        View details
       </Button>
     </Paper>
   );

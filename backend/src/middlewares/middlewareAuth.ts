@@ -8,6 +8,8 @@ import { authJWT } from "./middlewareJWT";
 export const authUser = async (ctx: Context, next: Next) => {
   const sessionId = ctx.cookies.get(COOKIE_SESSION_NAME);
 
+  console.log(sessionId);
+
   if (!sessionId) {
     ctx.status = 401;
     ctx.body = { error: "Unauthorized" };

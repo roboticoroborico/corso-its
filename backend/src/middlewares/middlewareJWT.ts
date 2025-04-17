@@ -4,7 +4,7 @@ import { IPayloadJwt } from "../types";
 import prisma from "../../prisma/client";
 
 export const authJWT = async (ctx: Context, next: Next) => {
-  const authToken = ctx.request.headers["authorization"];
+  const authToken = ctx.request.headers["authorization"] as string;
   if (!authToken) {
     ctx.status = 401;
     ctx.body = { error: "Unauthorized" };

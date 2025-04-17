@@ -574,13 +574,13 @@ router.delete(
  *               $ref: '#/components/schemas/Error'
  */
 router.get(
-  "/class/:idClass/skill",
+  "/class/:id/skill",
   authJWT,
   authUser,
   classExists,
   (ctx, next) => userRole(ctx, next, USER_ROLE.ADMIN),
   async (ctx) => {
-    const idClass = ctx.params.idClass;
+    const idClass = ctx.params.id;
 
     try {
       const clazz = await prisma.classSkillMod.findMany({
