@@ -13,7 +13,7 @@ const router = new Router({
 });
 
 // POST: /user/register: create a new user
-router.post("/register", async (ctx) => {
+router.post("/register", authJWT, async (ctx) => {
   ctx.request.body = userSchema.parse(ctx.request.body);
   const { email, password } = ctx.request.body as User;
 
@@ -118,7 +118,7 @@ router.post("/logout", authJWT, authUser, async (ctx) => {
 });
 
 // PATCH: /user/:id: update user
-router.patch("/:id", authUser, async (ctx) => {
+router.patch("/:id", authJWT, authUser, async (ctx) => {
   const id = ctx.params.id;
   const { email, password } = ctx.request.body as User;
   try {
@@ -141,7 +141,7 @@ router.patch("/:id", authUser, async (ctx) => {
 });
 
 // DELETE: /user/:id: delete user
-router.delete("/:id", authUser, async (ctx) => {
+router.delete("/:id", authJWT, authUser, async (ctx) => {
   const id = ctx.params.id;
 
   await prisma.user.delete({

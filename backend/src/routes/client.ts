@@ -5,6 +5,7 @@ import { ApiClient, USER_ROLE } from "@prisma/client";
 import { API_CLIENT_DEFAULT_VERSION } from "../consts";
 import { authUser, userRole } from "../middlewares/middlewareAuth";
 import { IPayloadJwt } from "../types";
+import { authJWT } from "../middlewares/middlewareJWT";
 
 const router = new Router({
   prefix: "/client",
@@ -63,7 +64,7 @@ router.post(
 
 router.post(
   "/invalidate/:idClient",
-  authUser,
+  authJWT,
   (ctx, next) => userRole(ctx, next, USER_ROLE.ADMIN),
   async (ctx) => {
     try {
